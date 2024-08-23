@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toWatchList = document.getElementById('to-watch-list');
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
+    const loginForm = document.getElementById('login-form');
 
     function createItem(title, type) {
         const item = document.createElement('div');
@@ -46,5 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchResults.appendChild(item.cloneNode(true));
             }
         });
+    });
+
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('Login functionality is not implemented yet.');
     });
 });

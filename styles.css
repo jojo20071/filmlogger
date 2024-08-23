@@ -92,3 +92,18 @@ section {
     display: flex;
     flex-direction: column;
 }
+#login, #register {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#login form, #register form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login input, #register input, #login button, #register button {
+    margin: 5px 0;
+}
