@@ -5,6 +5,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
     const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const userInfo = document.getElementById('user-info');
+    const userNameSpan = document.getElementById('user-name');
+    const logoutButton = document.getElementById('logout');
+    
+    function saveData() {
+        const watchedItems = Array.from(watchedList.children).map(item => item.textContent);
+        const toWatchItems = Array.from(toWatchList.children).map(item => item.textContent);
+        localStorage.setItem('watched', JSON.stringify(watchedItems));
+        localStorage.setItem('toWatch', JSON.stringify(toWatchItems));
+    }
+
+    function loadData() {
+        const watchedItems = JSON.parse(localStorage.getItem('watched')) || [];
+        const toWatchItems = JSON.parse(localStorage.getItem('toWatch')) || [];
+        
+        watchedItems.forEach(itemText => {
+            const item = createItem(itemText, 'film');
+            watchedList.appendChild(item);
+        });
+        
+        toWatchItems.forEach(itemText => {
+            const item = createItem(itemText, 'series');
+            toWatchList.appendChild(item);
+        });
+    }
 
     function createItem(title, type) {
         const item = document.createElement('div');
@@ -19,8 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 toWatchList.appendChild(item);
                 item.classList.remove('watched');
             }
+            saveData();
         });
         return item;
+    }
+
+    function handleLogin(username) {
+        userInfo.style.display = 'block';
+        userNameSpan.textContent = username;
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('register').style.display = 'none';
+    }
+
+    function handleLogout() {
+        userInfo.style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('register').style.display = 'block';
+        localStorage.removeItem('user');
     }
 
     addForm.addEventListener('submit', (event) => {
@@ -36,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         addForm.reset();
+        saveData();
     });
 
     searchInput.addEventListener('input', () => {
@@ -51,6 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        alert('Login functionality is not implemented yet.');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username && password) {
+            localStorage.setItem('user', username);
+            handleLogin(username);
+            loadData();
+        }
     });
+
+    registerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const username = document.getElementById('reg-username').value;
+        const password = document.getElementById('reg-password').value;
+
+        if (username && password) {
+            localStorage.setItem('user', username);
+            handleLogin(username);
+            loadData();
+        }
+    });
+
+    logoutButton.addEventListener('click', () => {
+        handleLogout();
+    });
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+        handleLogin(storedUser);
+        loadData();
+    }
 });

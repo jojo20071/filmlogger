@@ -107,3 +107,17 @@ section {
 #login input, #register input, #login button, #register button {
     margin: 5px 0;
 }
+#user-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#user-info button {
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+}
