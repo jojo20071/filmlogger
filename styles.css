@@ -46,3 +46,32 @@ form button {
     border: none;
     cursor: pointer;
 }
+header h1 {
+    margin: 0;
+}
+
+header nav ul {
+    text-align: center;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.item {
+    background: #e2e2e2;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 3px;
+}
+
+#watched-list, #to-watch-list {
+    display: flex;
+    flex-direction: column;
+}
