@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewList = document.getElementById('review-list');
     const apiSearchInput = document.getElementById('api-search-input');
     const apiResults = document.getElementById('api-results');
+    const userProfile = document.getElementById('user-profile');
+    const profileUsernameSpan = document.getElementById('profile-username');
+    const changePasswordModal = document.getElementById('change-password-modal');
+    const closeModal = document.querySelector('.close');
+    const changePasswordForm = document.getElementById('change-password-form');
+    const deleteAccountButton = document.getElementById('delete-account');
 
     function saveData() {
         const watchedItems = Array.from(watchedList.children).map(item => item.textContent);
@@ -68,10 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleLogin(username) {
         userInfo.style.display = 'block';
         userNameSpan.textContent = username;
+        profileUsernameSpan.textContent = username;
         document.getElementById('login').style.display = 'none';
         document.getElementById('register').style.display = 'none';
         reviewsSection.style.display = 'block';
         document.getElementById('api-search').style.display = 'block';
+        userProfile.style.display = 'block';
     }
 
     function handleLogout() {
@@ -80,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('register').style.display = 'block';
         reviewsSection.style.display = 'none';
         document.getElementById('api-search').style.display = 'none';
+        userProfile.style.display = 'none';
         localStorage.removeItem('user');
     }
 
@@ -178,6 +187,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             apiResults.appendChild(apiItem);
         });
+    });
+
+    changePasswordForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const newPassword = document.getElementById('new-password').value;
+        
+        if (newPassword) {
+            // Here you would typically update the password on the server side
+            alert('Password changed successfully!');
+            changePasswordModal.style.display = 'none';
+        }
+    });
+
+    deleteAccountButton.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete your account?')) {
+            localStorage.removeItem('user');
+            handleLogout();
+            alert('Account deleted successfully!');
+        }
+    });
+
+    closeModal.addEventListener('click', () => {
+        changePasswordModal.style.display = 'none';
     });
 
     const storedUser = localStorage.getItem('user');

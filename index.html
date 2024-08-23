@@ -93,6 +93,23 @@
             <input type="text" id="api-search-input" placeholder="Search for films or series...">
             <div id="api-results"></div>
         </section>
+        <section id="user-profile" style="display: none;">
+            <h2>User Profile</h2>
+            <p>Username: <span id="profile-username"></span></p>
+            <button id="change-password">Change Password</button>
+            <button id="delete-account">Delete Account</button>
+        </section>
+        <div id="change-password-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Change Password</h2>
+                <form id="change-password-form">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" required>
+                    <button type="submit">Change Password</button>
+                </form>
+            </div>
+        </div>
         
         
         
