@@ -139,3 +139,17 @@ section {
     margin: 5px 0;
     border-radius: 3px;
 }
+#api-search {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#api-results .api-item {
+    background: #f4f4f4;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}

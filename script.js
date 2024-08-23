@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewsSection = document.getElementById('reviews');
     const reviewForm = document.getElementById('review-form');
     const reviewList = document.getElementById('review-list');
+    const apiSearchInput = document.getElementById('api-search-input');
+    const apiResults = document.getElementById('api-results');
 
     function saveData() {
         const watchedItems = Array.from(watchedList.children).map(item => item.textContent);
@@ -69,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('login').style.display = 'none';
         document.getElementById('register').style.display = 'none';
         reviewsSection.style.display = 'block';
+        document.getElementById('api-search').style.display = 'block';
     }
 
     function handleLogout() {
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('login').style.display = 'block';
         document.getElementById('register').style.display = 'block';
         reviewsSection.style.display = 'none';
+        document.getElementById('api-search').style.display = 'none';
         localStorage.removeItem('user');
     }
 
@@ -146,6 +150,34 @@ document.addEventListener('DOMContentLoaded', () => {
         
         reviewForm.reset();
         saveData();
+    });
+
+    apiSearchInput.addEventListener('input', async () => {
+        const query = apiSearchInput.value;
+        if (query.length < 3) {
+            apiResults.innerHTML = '';
+            return;
+        }
+
+        const response = await fetch(`https://api.example.com/search?query=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        
+        apiResults.innerHTML = '';
+        data.results.forEach(result => {
+            const apiItem = document.createElement('div');
+            apiItem.classList.add('api-item');
+            apiItem.textContent = `${result.title} (${result.year})`;
+            apiItem.addEventListener('click', () => {
+                const item = createItem(result.title, result.type);
+                if (result.type === 'film') {
+                    toWatchList.appendChild(item);
+                } else {
+                    watchedList.appendChild(item);
+                }
+                saveData();
+            });
+            apiResults.appendChild(apiItem);
+        });
     });
 
     const storedUser = localStorage.getItem('user');
