@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film & Series Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Film & Series Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#watched">Watched</a></li>
+                <li><a href="#to-watch">To Watch</a></li>
+                <li><a href="#add">Add New</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="watched">
+            <h2>Watched</h2>
+            <div id="watched-list"></div>
+        </section>
+        <section id="to-watch">
+            <h2>To Watch</h2>
+            <div id="to-watch-list"></div>
+        </section>
+        <section id="add">
+            <h2>Add New</h2>
+            <form id="add-form">
+                <input type="text" id="title" placeholder="Title" required>
+                <select id="type">
+                    <option value="film">Film</option>
+                    <option value="series">Series</option>
+                </select>
+                <button type="submit">Add</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
