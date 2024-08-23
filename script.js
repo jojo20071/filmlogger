@@ -9,17 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInfo = document.getElementById('user-info');
     const userNameSpan = document.getElementById('user-name');
     const logoutButton = document.getElementById('logout');
-    
+    const reviewsSection = document.getElementById('reviews');
+    const reviewForm = document.getElementById('review-form');
+    const reviewList = document.getElementById('review-list');
+
     function saveData() {
         const watchedItems = Array.from(watchedList.children).map(item => item.textContent);
         const toWatchItems = Array.from(toWatchList.children).map(item => item.textContent);
+        const reviews = Array.from(reviewList.children).map(review => review.textContent);
         localStorage.setItem('watched', JSON.stringify(watchedItems));
         localStorage.setItem('toWatch', JSON.stringify(toWatchItems));
+        localStorage.setItem('reviews', JSON.stringify(reviews));
     }
 
     function loadData() {
         const watchedItems = JSON.parse(localStorage.getItem('watched')) || [];
         const toWatchItems = JSON.parse(localStorage.getItem('toWatch')) || [];
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
         
         watchedItems.forEach(itemText => {
             const item = createItem(itemText, 'film');
@@ -29,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         toWatchItems.forEach(itemText => {
             const item = createItem(itemText, 'series');
             toWatchList.appendChild(item);
+        });
+
+        reviews.forEach(reviewText => {
+            const review = document.createElement('div');
+            review.classList.add('review');
+            review.textContent = reviewText;
+            reviewList.appendChild(review);
         });
     }
 
@@ -55,12 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
         userNameSpan.textContent = username;
         document.getElementById('login').style.display = 'none';
         document.getElementById('register').style.display = 'none';
+        reviewsSection.style.display = 'block';
     }
 
     function handleLogout() {
         userInfo.style.display = 'none';
         document.getElementById('login').style.display = 'block';
         document.getElementById('register').style.display = 'block';
+        reviewsSection.style.display = 'none';
         localStorage.removeItem('user');
     }
 
@@ -117,6 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     logoutButton.addEventListener('click', () => {
         handleLogout();
+    });
+
+    reviewForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const title = document.getElementById('review-title').value;
+        const text = document.getElementById('review-text').value;
+        
+        const review = document.createElement('div');
+        review.classList.add('review');
+        review.textContent = `${title}: ${text}`;
+        reviewList.appendChild(review);
+        
+        reviewForm.reset();
+        saveData();
     });
 
     const storedUser = localStorage.getItem('user');
