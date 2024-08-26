@@ -11,7 +11,7 @@ A simple web project to track movies and series you have watched or want to watc
 
 1. Clone the repository:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/jojo20071/filmlogger
     ```
 2. Navigate to the project directory:
     ```bash
